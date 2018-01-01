@@ -1,0 +1,5 @@
+﻿  quest_2-3.cpp
+d:\git_repo\winapi\winapi-study\quest_2-3.cpp(68): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\git_repo\winapi\winapi-study\quest_2-3.cpp(73): warning C4244: '=': 'WPARAM'에서 'TCHAR'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\git_repo\winapi\winapi-study\quest_2-3.cpp(64): warning C4101: 'idx' :참조되지 않은 지역 변수입니다.
+  WinAPI-study.vcxproj -> D:\git_repo\WinAPI\x64\Debug\WinAPI-study.exe
