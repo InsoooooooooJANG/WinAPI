@@ -59,7 +59,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
     break;
   case WM_PAINT:
     hdc = BeginPaint(hwnd, &ps);
-    Rectangle(hdc, 0, 0, rectView.right - 50, rectView.bottom - 50);
+    Rectangle(hdc, 0, 0, rectView.right - 20, rectView.bottom - 40);
 
     hPen = CreatePen(PS_SOLID, 1, RGB(0, 0, 255));
     oldPen = (HPEN)SelectObject(hdc, hPen);
@@ -79,34 +79,63 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
     if (wParam == VK_RETURN)
     {
       key = 2;
-      SetTimer(hwnd, 1, 200, NULL);
+      SetTimer(hwnd, 1, 1000, NULL);
     }
     else if (wParam == VK_RIGHT)
     {
       tail_x = head_x - 40;
       tail_y = head_y;
       key = 2;
+
+      if (head_x - 20 <= rectView.left)
+      {
+        int tmp = head_x;
+        tail_x = head_x + 40;
+        head_x = tail_x;
+        tail_x = tmp;
+      }
     }
     else if (wParam == VK_UP)
     {
       tail_x = head_x;
       tail_y = head_y + 40;
-
       key = 1;
+
+      if (head_y - 20 <= rectView.bottom - 40)
+      {
+        int tmp = head_y;
+        tail_y = head_y - 40;
+        head_y = tail_y;
+        tail_y = tmp;
+      }
     }
     else if (wParam == VK_LEFT)
     {
       tail_x = head_x + 40;
       tail_y = head_y;
-
       key = 4;
+
+      if (head_x + 20 >= rectView.left - 20)
+      {
+        int tmp = head_x;
+        tail_x = head_x - 40;
+        head_x = tail_x;
+        tail_x = tmp;
+      }
     }
     else if (wParam = VK_DOWN)
     {
       tail_x = head_x;
       tail_y = head_y - 40;
-    
       key = 3;
+
+      if (head_y + 20 >= rectView.top)
+      {
+        int tmp = head_y;
+        tail_y = head_y + 40;
+        head_y = tail_y;
+        tail_y = tmp;
+      }
     }
 
     InvalidateRgn(hwnd, NULL, TRUE);
@@ -116,7 +145,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
     {
       tail_x += 40;
       head_x += 40;
-      if (head_x + 20 >= rectView.right - 50)
+
+      if (head_x + 20 > rectView.right - 20)
       {
         head_x -= 40;
         tail_x -= 40;
@@ -126,7 +156,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
     {
       head_y += 40;
       tail_y += 40;
-      if (head_y + 20 >= rectView.bottom - 50)
+      if (head_y + 20 > rectView.bottom - 40)
       {
         tail_y -= 40;
         head_y -= 40;
